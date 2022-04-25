@@ -1,0 +1,2 @@
+# LoGo
+GoLang logger
