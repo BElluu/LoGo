@@ -1,17 +1,21 @@
 package LoggerConfiguration
 
 type Logger struct {
-	msg string
+	ToConsole bool
+	ToFile    bool
 }
 
-func WriteTo() *Logger {
-	return &Logger{msg: "test"}
+func WriteTo() Logger {
+	return Logger{}
 }
 
-func (l *Logger) Console() {
+func (l Logger) Console() Logger {
+	l.ToConsole = true
 	print("Write to console")
+	return l
 }
 
-func (l *Logger) File() {
-	print("Write to file")
+func (l Logger) File(path string) {
+	l.ToFile = true
+	print("Write to file %s", path)
 }
