@@ -1,10 +1,18 @@
 package LoggerConfiguration
 
+import "LoGo/LogLevel"
+
 type Logger struct {
-	toConsole  bool
-	toFile     bool
-	toDatabase bool
-	FilePath   string
+	toConsole    bool
+	toDatabase   bool
+	minimumLevel LogLevel.MinimumLevel
+	FileLogging  FileLogging
+}
+
+type FileLogging struct {
+	toFile      bool
+	maxLogFiles int
+	FilePath    string
 }
 
 var myLogger = Logger{}
@@ -18,18 +26,28 @@ func (l Logger) Console() *Logger {
 	return &myLogger
 }
 
-func (l Logger) File(path string) *Logger {
-	myLogger.toFile = true
-	myLogger.FilePath = path
+func (l Logger) File(path string, numberOfFiles int) *Logger {
+	myLogger.FileLogging.toFile = true
+	myLogger.FileLogging.FilePath = path
+	myLogger.FileLogging.maxLogFiles = numberOfFiles
+	return &myLogger
+}
+
+func GetMinimumLevel() LogLevel.MinimumLevel {
+	return myLogger.minimumLevel
+}
+
+func (l Logger) MinimumLevel(minimumLevel LogLevel.MinimumLevel) *Logger {
+	myLogger.minimumLevel = minimumLevel
 	return &myLogger
 }
 
 func GetFilePath() string {
-	return myLogger.FilePath
+	return myLogger.FileLogging.FilePath
 }
 
 func ShouldLogToFile() bool {
-	return myLogger.toFile
+	return myLogger.FileLogging.toFile
 }
 
 func ShouldLogToConsole() bool {

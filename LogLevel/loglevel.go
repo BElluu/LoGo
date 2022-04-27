@@ -1,11 +1,20 @@
 package LogLevel
 
 type LogLevel string
+type MinimumLevel int
 
 const (
-	ERROR   LogLevel = "ERROR"
-	WARNING LogLevel = "WARNING"
-	INFO    LogLevel = "INFO"
-	DEBUG   LogLevel = "DEBUG"
-	FATAL   LogLevel = "FATAL"
+	ERROR_MESSAGE   LogLevel = "ERROR"
+	WARNING_MESSAGE LogLevel = "WARNING"
+	INFO_MESSAGE    LogLevel = "INFO"
+	DEBUG_MESSAGE   LogLevel = "DEBUG"
+	FATAL_MESSAGE   LogLevel = "FATAL"
+)
+
+const (
+	INFO MinimumLevel = iota
+	WARNING
+	ERROR
+	FATAL
+	DEBUG
 )
