@@ -23,23 +23,47 @@ func Error(message string, etc ...interface{}) {
 }
 
 func Warning(message string, etc ...interface{}) {
-	fmt.Printf(Color.Yellow+"%s [%s]: %s %v \n", time.Now().Format("2006-01-02 15:01:05"),
+	text := fmt.Sprintf("%s [%s]: %s %v \n", time.Now().Format("2006-01-02 15:01:05"),
 		LogLevel.WARNING, message, strings.Trim(fmt.Sprint(etc), "[]"))
+	if LoggerConfiguration.ShouldLogToConsole() {
+		fmt.Printf(Color.Yellow + text)
+	}
+	if LoggerConfiguration.ShouldLogToFile() {
+		writeToFile(text)
+	}
 }
 
 func Information(message string, etc ...interface{}) {
-	fmt.Printf(Color.Blue+"%s [%s]: %s %v \n", time.Now().Format("2006-01-02 15:01:05"),
+	text := fmt.Sprintf("%s [%s]: %s %v \n", time.Now().Format("2006-01-02 15:01:05"),
 		LogLevel.INFO, message, strings.Trim(fmt.Sprint(etc), "[]"))
+	if LoggerConfiguration.ShouldLogToConsole() {
+		fmt.Printf(Color.Blue + text)
+	}
+	if LoggerConfiguration.ShouldLogToFile() {
+		writeToFile(text)
+	}
 }
 
 func Debug(message string, etc ...interface{}) {
-	fmt.Printf(Color.Purple+"%s [%s]: %s %v \n", time.Now().Format("2006-01-02 15:01:05"),
+	text := fmt.Sprintf("%s [%s]: %s %v \n", time.Now().Format("2006-01-02 15:01:05"),
 		LogLevel.DEBUG, message, strings.Trim(fmt.Sprint(etc), "[]"))
+	if LoggerConfiguration.ShouldLogToConsole() {
+		fmt.Printf(Color.Purple + text)
+	}
+	if LoggerConfiguration.ShouldLogToFile() {
+		writeToFile(text)
+	}
 }
 
 func Fatal(message string, etc ...interface{}) {
-	fmt.Printf(Color.Red+"%s [%s]: %s %v \n", time.Now().Format("2006-01-02 15:01:05"),
+	text := fmt.Sprintf("%s [%s]: %s %v \n", time.Now().Format("2006-01-02 15:01:05"),
 		LogLevel.FATAL, message, strings.Trim(fmt.Sprint(etc), "[]"))
+	if LoggerConfiguration.ShouldLogToConsole() {
+		fmt.Printf(Color.Red + text)
+	}
+	if LoggerConfiguration.ShouldLogToFile() {
+		writeToFile(text)
+	}
 }
 
 func writeToFile(mess string) {
