@@ -1,11 +1,14 @@
 package main
 
 import (
-	"LoGo/Log"
+	"LoGo/LogLevel"
 	"LoGo/LoggerConfiguration"
 )
 
 func main() {
-	Log.Error("Panikujemy")
-	LoggerConfiguration.WriteTo().Console()
+	LoggerConfiguration.
+		WriteTo().
+		Console().
+		File("MyTestApp", "").
+		MinimumLevel(LogLevel.DEBUG)
 }
